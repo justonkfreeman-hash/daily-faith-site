@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+    
 function buildPrayer(verse) {
   return `Lord, thank You for Your Word in: ${verse}
 
