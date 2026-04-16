@@ -16,7 +16,7 @@ async function generate() {
     prayer: buildPrayer(verse)
   };
 
-  fs.writeFileSync("today.json", JSON.stringify(content, null, 2));
+  fs.writeFileSync("./today.json", JSON.stringify(content, null, 2));
 
   console.log("✅ Generated with real Bible API verse");
 }
