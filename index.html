@@ -30,7 +30,7 @@
 <script>
 async function loadData() {
   try {
-    const res = await fetch("./today.json?v=" + new Date().getTime());
+    const res = await fetch("./daily-faith-site/today.json?v=" + new Date().getTime());
     const data = await res.json();
 
     document.getElementById("verse").innerText = data.verse;
