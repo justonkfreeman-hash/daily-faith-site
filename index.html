@@ -17,7 +17,7 @@
 <p id="prayer"></p>
 
 <script>
-fetch("today.json")
+fetch("./today.json")
   .then(res => res.json())
   .then(data => {
     document.getElementById("verse").innerText = data.verse;
