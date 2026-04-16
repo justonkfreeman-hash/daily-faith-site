@@ -41,7 +41,7 @@ async function generate() {
     prayer: buildPrayer(verse.reference)
   };
 
-  fs.writeFileSync("today.json", JSON.stringify(content, null, 2));
+  fs.writeFileSync("./today.json", JSON.stringify(content, null, 2));
   console.log("✅ Updated today.json");
 }
 
