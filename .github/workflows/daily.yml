@@ -2,11 +2,11 @@ name: Daily Update
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # runs daily at 6 AM UTC
-  workflow_dispatch:      # lets you manually run it
+    - cron: "0 6 * * *"
+  workflow_dispatch:
 
 permissions:
-  contents: write        # ⭐ REQUIRED or push will fail
+  contents: write
 
 jobs:
   build:
@@ -19,16 +19,15 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Run generator
         run: node generate.js
 
-      - name: Commit and push changes
+      - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add today.json
-          git commit -m "Daily update" || echo "No changes to commit"
-          git push origin maino "No changes"
-          git push
+          git commit -m "Daily update" || echo "No changes"
+          git push origin main
