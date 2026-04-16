@@ -40,7 +40,7 @@ function generate() {
     prayer: buildPrayer()
   };
 
-  fs.writeFileSync("today.json", JSON.stringify(content, null, 2));
+  fs.writeFileSync("./daily-faith-site/today.json", JSON.stringify(content, null, 2));
 
   console.log("✅ today.json updated");
 }
