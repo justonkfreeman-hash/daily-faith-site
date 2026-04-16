@@ -1,57 +1,48 @@
 const fs = require("fs");
 
-async function getVerse() {
-  try {
-    const res = await fetch("https://bible-api.com/?random=verse");
-    const data = await res.json();
+function getRandomVerse() {
+  const verses = [
+    "Philippians 4:13 — I can do all things through Christ who strengthens me.",
+    "Isaiah 41:10 — Fear not, for I am with you.",
+    "Proverbs 3:5 — Trust in the Lord with all your heart.",
+    "Psalm 23:1 — The Lord is my shepherd; I shall not want."
+  ];
 
-    return {
-      reference: data.reference,
-      text: data.text.trim()
-    };
-  } catch (err) {
-    return {
-      reference: "Psalm 23:1",
-      text: "The Lord is my shepherd; I shall not want."
-    };
-  }
+  return verses[Math.floor(Math.random() * verses.length)];
 }
 
-function buildDevotional(ref, text) {
-  return `${ref} — ${text}
+function buildDevotional(verse) {
+  return `Today's verse is: ${verse}
 
-Take a moment to slow down and reflect on this verse.
+Take a moment to reflect on what this means in your life today.
 
-God’s Word is not just information—it is guidance for your life today. Think about what this verse is revealing about God’s character and your current situation.
+God is reminding you that you are not alone, and His strength is enough for every situation you face.
 
-Where do you need to trust Him more today? What are you holding onto that you can release to Him?
-
-Walk through today remembering that God is already ahead of you.`;
+Walk in faith today, not fear.`;
 }
 
-function buildPrayer(ref) {
-  return `Lord, thank You for speaking through ${ref}.
-Help me not just read Your Word, but live it today.
+function buildPrayer() {
+  return `Lord, thank You for Your Word today.
+Help me trust You more and walk in Your truth.
 
-Give me faith to trust You in every situation I face.
-Guide my thoughts, decisions, and actions.
+Guide my steps and strengthen my faith.
 
 Amen.`;
 }
 
-async function generate() {
-  const verse = await getVerse();
+function generate() {
+  const verse = getRandomVerse();
 
   const content = {
     date: new Date().toISOString().split("T")[0],
-    verse: `${verse.reference} — ${verse.text}`,
-    devotional: buildDevotional(verse.reference, verse.text),
-    prayer: buildPrayer(verse.reference)
+    verse,
+    devotional: buildDevotional(verse),
+    prayer: buildPrayer()
   };
 
   fs.writeFileSync("today.json", JSON.stringify(content, null, 2));
 
-  console.log("✅ today.json updated successfully");
+  console.log("✅ today.json updated");
 }
 
 generate();
