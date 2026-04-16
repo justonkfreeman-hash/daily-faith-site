@@ -1,4 +1,7 @@
-name: Daily Update
+name: Daily Update    
+
+permissions:
+  contents: write
 
 on:
   schedule:
