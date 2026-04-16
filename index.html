@@ -1,13 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Faith</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+    .box { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; }
+  </style>
+</head>
+
+<body>
+
+<h1>Daily Faith</h1>
+
+<div class="box">
+  <h2>📖 Verse</h2>
+  <p id="verse">Loading...</p>
+</div>
+
+<div class="box">
+  <h2>✍️ Devotional</h2>
+  <p id="devotional">Loading...</p>
+</div>
+
+<div class="box">
+  <h2>🙏 Prayer</h2>
+  <p id="prayer">Loading...</p>
+</div>
+
 <script>
-fetch("./today.json")
-  .then(res => res.json())
-  .then(data => {
+async function loadData() {
+  try {
+    const res = await fetch("./today.json?v=" + new Date().getTime());
+    const data = await res.json();
+
     document.getElementById("verse").innerText = data.verse;
     document.getElementById("devotional").innerText = data.devotional;
     document.getElementById("prayer").innerText = data.prayer;
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("verse").innerText = "Error loading content.";
-  });
+  } catch (e) {
+    document.getElementById("verse").innerText = "Failed to load content.";
+  }
+}
+
+loadData();
 </script>
+
+</body>
+</html>
