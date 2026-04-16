@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+
 function buildDevotional(verse) {
   return `Today's verse: ${verse}
 
