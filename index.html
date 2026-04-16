@@ -1,0 +1,13 @@
+<script>
+fetch("./today.json")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("verse").innerText = data.verse;
+    document.getElementById("devotional").innerText = data.devotional;
+    document.getElementById("prayer").innerText = data.prayer;
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("verse").innerText = "Error loading content.";
+  });
+</script>
