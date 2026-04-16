@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+
 const fs = require("fs");
 const getVerse = require("./verse");
 const buildDevotional = require("./devotional");
