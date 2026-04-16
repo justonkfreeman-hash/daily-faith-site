@@ -1,47 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Daily Faith</title>
+
   <style>
-    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
-    .box { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background: #f7f3ee;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .box {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 1.6;
+      white-space: pre-line;
+    }
   </style>
 </head>
 
 <body>
 
-<h1>Daily Faith</h1>
+<h1>📖 Daily Faith</h1>
 
 <div class="box">
-  <h2>📖 Verse</h2>
+  <h2>Verse of the Day</h2>
   <p id="verse">Loading...</p>
 </div>
 
 <div class="box">
-  <h2>✍️ Devotional</h2>
+  <h2>Devotional</h2>
   <p id="devotional">Loading...</p>
 </div>
 
 <div class="box">
-  <h2>🙏 Prayer</h2>
+  <h2>Prayer</h2>
   <p id="prayer">Loading...</p>
 </div>
 
 <script>
-async function loadData() {
+async function loadContent() {
   try {
-    const res = await fetch("./daily-faith-site/today.json?v=" + new Date().getTime());
+    const res = await fetch("./today.json?v=" + Date.now());
+
+    if (!res.ok) {
+      throw new Error("Failed to load JSON");
+    }
+
     const data = await res.json();
 
-    document.getElementById("verse").innerText = data.verse;
-    document.getElementById("devotional").innerText = data.devotional;
-    document.getElementById("prayer").innerText = data.prayer;
-  } catch (e) {
-    document.getElementById("verse").innerText = "Failed to load content.";
+    document.getElementById("verse").innerText = data.verse || "No verse found.";
+    document.getElementById("devotional").innerText = data.devotional || "No devotional found.";
+    document.getElementById("prayer").innerText = data.prayer || "No prayer found.";
+
+  } catch (err) {
+    console.error(err);
+
+    document.getElementById("verse").innerText = "Error loading content.";
+    document.getElementById("devotional").innerText = "Check today.json file.";
+    document.getElementById("prayer").innerText = "Make sure generator is running.";
   }
 }
 
-loadData();
+loadContent();
 </script>
 
 </body>
